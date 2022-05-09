@@ -11,30 +11,32 @@ app.use(express.json());
 
 
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.PASSWORD}@cluster0.peb5q.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.db_PASSWORD}@cluster0.peb5q.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 console.log(uri)
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
     try {
         await client.connect();
-        const productCollection = client.db('maxWareHouse').collection('product');
+        const itemCollection = client.db('maxWareHouse').collection('item');
 
-        app.get('/product'), async(req, res) =>{
+        app.get('/item', async(req, res) =>{
             const query = {};
-            const cursor = productCollection.find(query);
-            const product = await cursor.toArray();
-            res.send(product);
-        }
+            const cursor = itemCollection.find(query);
+            const items = await cursor.toArray();
+            res.send(items);
+        });
     }
-    finally { }
+    finally { 
+
+    }
 }
-run.catch(console.dir);
+run().catch(console.dir);
 
 app.get('/', (req, res) => {
     res.send('conncet')
-})
+});
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log('Example app listening on port', port);
 })
