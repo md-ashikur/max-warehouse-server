@@ -26,6 +26,13 @@ async function run() {
             const items = await cursor.toArray();
             res.send(items);
         });
+
+        // post
+        app.post('/item', async(req, res) =>{
+            const newItem = req.body;
+            const result = await itemCollection.insertOne(newItem);
+            res.send(result);
+        })
     }
     finally { 
 
@@ -34,7 +41,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-    res.send('conncet')
+    res.send('connect')
 });
 
 app.listen(port, () => {
