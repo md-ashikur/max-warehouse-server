@@ -27,12 +27,12 @@ async function run() {
             res.send(items);
         });
 
-        // app.get('/item/:id', async(req, res) =>{
-        //     const id = req.params.id;
-        //     const query={_id: ObjectId(id)};
-        //     const item = await itemCollection.findOne(query);
-        //     res.send(item);
-        // });
+        app.get('/item/:id', async(req, res) =>{
+            const id = req.params.id;
+            const query={_id: ObjectId(id)};
+            const item = await itemCollection.findOne(query);
+            res.send(item);
+        });
         // post
         app.post('/item', async(req, res) =>{
             const newItem = req.body;
@@ -56,6 +56,9 @@ run().catch(console.dir);
 
 app.get('/', (req, res) => {
     res.send('connect')
+});
+app.get('/hoise', (req, res) => {
+    res.send('hi')
 });
 
 app.listen(port, () => {
